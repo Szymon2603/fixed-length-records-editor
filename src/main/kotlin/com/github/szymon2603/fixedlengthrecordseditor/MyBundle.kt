@@ -1,4 +1,4 @@
-package org.jetbrains.plugins.template
+package com.github.szymon2603.fixedlengthrecordseditor
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls
