@@ -11,6 +11,7 @@ import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 import javax.swing.JComponent
 
+@Suppress("TooManyFunctions")
 class FixedLengthRecordsEditor : FileEditor, FileEditorLocation {
 
     private val log = LoggerFactory.getLogger(FixedLengthRecordsEditor::class.java)
