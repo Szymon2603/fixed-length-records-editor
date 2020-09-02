@@ -8,8 +8,15 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.MyProjectService"/>
+        <applicationService
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.MyApplicationService"/>
+        <projectService
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.MyProjectService"/>
+
+        <fileType name="Fixed length records file"
+                  implementationClass="com.github.szymon2603.fixedlengthrecordseditor.filetypes.FixedLengthRecordsFileType"
+                  fieldName="INSTANCE"
+                  extensions="txt"/>
     </extensions>
 
     <projectListeners>
