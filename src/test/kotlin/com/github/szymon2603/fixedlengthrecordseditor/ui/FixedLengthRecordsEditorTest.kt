@@ -10,9 +10,9 @@ internal class FixedLengthRecordsEditorTest : BasePlatformTestCase() {
 
     private val editor by lazy(LazyThreadSafetyMode.NONE) {
         val provider = FileEditorProviderManager
-                .getInstance()
-                .getProviders(project, myFixture.file.virtualFile)
-                .first { it is FixedLengthRecordsEditorProvider } as FixedLengthRecordsEditorProvider
+            .getInstance()
+            .getProviders(project, myFixture.file.virtualFile)
+            .first { it is FixedLengthRecordsEditorProvider } as FixedLengthRecordsEditorProvider
         provider.createEditor(project, myFixture.file.virtualFile)
     }
 

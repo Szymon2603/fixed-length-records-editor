@@ -20,17 +20,17 @@ internal class FixedLengthRecordsEditorProviderTest : BasePlatformTestCase() {
 
     fun `test file have registered text editor provider`() {
         val fileEditorProviders = FileEditorProviderManager
-                .getInstance()
-                .getProviders(project, myFixture.file.virtualFile)
+            .getInstance()
+            .getProviders(project, myFixture.file.virtualFile)
 
         assertTrue(fileEditorProviders.any { it is FixedLengthRecordsEditorProvider })
     }
 
     fun `test editor provider has proper id`() {
         val fileEditorProviders = FileEditorProviderManager
-                .getInstance()
-                .getProviders(project, myFixture.file.virtualFile)
-                .first { it is FixedLengthRecordsEditorProvider }
+            .getInstance()
+            .getProviders(project, myFixture.file.virtualFile)
+            .first { it is FixedLengthRecordsEditorProvider }
 
         assertEquals("fixed-length-records-editor-id", fileEditorProviders.editorTypeId)
     }
