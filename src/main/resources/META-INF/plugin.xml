@@ -17,6 +17,9 @@
                   implementationClass="com.github.szymon2603.fixedlengthrecordseditor.filetypes.FixedLengthRecordsFileType"
                   fieldName="INSTANCE"
                   extensions="txt"/>
+
+        <fileEditorProvider
+                implementation="com.github.szymon2603.fixedlengthrecordseditor.ui.FixedLengthRecordsEditorProvider"/>
     </extensions>
 
     <projectListeners>
