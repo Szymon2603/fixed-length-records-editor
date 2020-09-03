@@ -1,6 +1,7 @@
 package com.github.szymon2603.fixedlengthrecordseditor.ui
 
 import com.github.szymon2603.fixedlengthrecordseditor.filetypes.FixedLengthRecordsLanguage
+import com.intellij.openapi.fileEditor.FileEditorPolicy
 import com.intellij.openapi.fileEditor.ex.FileEditorProviderManager
 import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
@@ -33,5 +34,14 @@ internal class FixedLengthRecordsEditorProviderTest : BasePlatformTestCase() {
             .first { it is FixedLengthRecordsEditorProvider }
 
         assertEquals("fixed-length-records-editor-id", fileEditorProviders.editorTypeId)
+    }
+
+    fun `test editor provider have proper policy for editor placement`() {
+        val fileEditorProviders = FileEditorProviderManager
+                .getInstance()
+                .getProviders(project, myFixture.file.virtualFile)
+                .first { it is FixedLengthRecordsEditorProvider }
+
+        assertEquals(FileEditorPolicy.PLACE_AFTER_DEFAULT_EDITOR, fileEditorProviders.policy)
     }
 }
