@@ -38,9 +38,9 @@ internal class FixedLengthRecordsEditorProviderTest : BasePlatformTestCase() {
 
     fun `test editor provider have proper policy for editor placement`() {
         val fileEditorProviders = FileEditorProviderManager
-                .getInstance()
-                .getProviders(project, myFixture.file.virtualFile)
-                .first { it is FixedLengthRecordsEditorProvider }
+            .getInstance()
+            .getProviders(project, myFixture.file.virtualFile)
+            .first { it is FixedLengthRecordsEditorProvider }
 
         assertEquals(FileEditorPolicy.PLACE_AFTER_DEFAULT_EDITOR, fileEditorProviders.policy)
     }
