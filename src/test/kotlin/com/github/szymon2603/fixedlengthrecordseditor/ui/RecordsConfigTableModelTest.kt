@@ -38,8 +38,8 @@ internal class RecordsConfigTableModelTest {
     @Test
     fun `test that value at row and column index is set correctly`() {
         val recordFieldDescriptors = listOf(
-                RecordFieldDescriptor("some-field-one"),
-                RecordFieldDescriptor("some-field-two")
+            RecordFieldDescriptor("some-field-one"),
+            RecordFieldDescriptor("some-field-two")
         )
         val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
         val tableModel = RecordsConfigTableModel(recordFieldsConfig)
@@ -74,8 +74,8 @@ internal class RecordsConfigTableModelTest {
     @Test
     fun `test that remove row remove it`() {
         val recordFieldDescriptors = listOf(
-                RecordFieldDescriptor("some-field", 0, 10),
-                RecordFieldDescriptor("some-field", 11, 15)
+            RecordFieldDescriptor("some-field", 0, 10),
+            RecordFieldDescriptor("some-field", 11, 15)
         )
         val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
         val tableModel = RecordsConfigTableModel(recordFieldsConfig)

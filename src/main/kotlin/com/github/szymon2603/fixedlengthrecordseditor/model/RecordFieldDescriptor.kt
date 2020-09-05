@@ -3,8 +3,8 @@ package com.github.szymon2603.fixedlengthrecordseditor.model
 import java.lang.IllegalArgumentException
 
 data class RecordFieldsConfig(
-        val fileProjectPath: String,
-        val recordFieldDescriptors: List<RecordFieldDescriptor>
+    val fileProjectPath: String,
+    val recordFieldDescriptors: List<RecordFieldDescriptor>
 ) {
     val numberOfFields: Int = recordFieldDescriptors.size
 
@@ -54,11 +54,11 @@ data class RecordFieldDescriptor(
         }
     }
 
-    fun copyWithNewEndIndex(endIndex: Int) : RecordFieldDescriptor {
+    fun copyWithNewEndIndex(endIndex: Int): RecordFieldDescriptor {
         return this.copy(endIndex = endIndex, length = endIndex - startIndex)
     }
 
-    fun copyWithNewLength(length: Int) : RecordFieldDescriptor {
+    fun copyWithNewLength(length: Int): RecordFieldDescriptor {
         return this.copy(length = length, endIndex = startIndex + length)
     }
 

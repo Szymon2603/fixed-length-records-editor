@@ -34,8 +34,8 @@ class RecordsConfigTableModel(private var recordFieldsConfig: RecordFieldsConfig
     fun addNewRow() {
         val lastDescriptor = recordFieldsConfig.recordFieldDescriptors.last()
         val newDescriptor = RecordFieldDescriptor(
-                startIndex = lastDescriptor.endIndex + 1,
-                endIndex = lastDescriptor.endIndex + 2
+            startIndex = lastDescriptor.endIndex + 1,
+            endIndex = lastDescriptor.endIndex + 2
         )
         recordFieldsConfig = recordFieldsConfig.copyWithRecordFieldDescriptor(newDescriptor)
     }
