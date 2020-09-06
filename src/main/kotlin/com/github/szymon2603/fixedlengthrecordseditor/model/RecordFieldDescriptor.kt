@@ -6,7 +6,8 @@ data class RecordFieldsConfig(
     val fileProjectPath: String,
     val recordFieldDescriptors: List<RecordFieldDescriptor>
 ) {
-    val numberOfFields: Int = recordFieldDescriptors.size
+    val numberOfFields: Int
+        get() = recordFieldDescriptors.size
 
     fun copyWithRecordFieldDescriptor(fieldDescriptor: RecordFieldDescriptor): RecordFieldsConfig {
         return this.copy(recordFieldDescriptors = recordFieldDescriptors.plus(fieldDescriptor))
@@ -28,9 +29,10 @@ data class RecordFieldDescriptor(
     val name: String = "",
     val startIndex: Int = 0,
     val endIndex: Int = 1,
-    val length: Int = endIndex - startIndex,
     val alignment: RecordValueAlignment = RecordValueAlignment.LEFT
 ) {
+    val length: Int
+        get() = endIndex - startIndex
 
     operator fun get(attributeIndex: Int): Any? {
         return when (attributeIndex) {
@@ -47,19 +49,15 @@ data class RecordFieldDescriptor(
         return when (attributeIndex) {
             NAME_ATTRIBUTE_INDEX -> this.copy(name = value as String)
             START_INDEX_ATTRIBUTE_INDEX -> this.copy(startIndex = value as Int)
-            END_INDEX_ATTRIBUTE_INDEX -> this.copyWithNewEndIndex(value as Int)
+            END_INDEX_ATTRIBUTE_INDEX -> this.copy(endIndex = value as Int)
             LENGTH_ATTRIBUTE_INDEX -> this.copyWithNewLength(length = value as Int)
             ALIGNMENT_ATTRIBUTE_INDEX -> this.copy(alignment = value as RecordValueAlignment)
             else -> throw IllegalArgumentException("Attribute index [$attributeIndex] is not correct")
         }
     }
 
-    fun copyWithNewEndIndex(endIndex: Int): RecordFieldDescriptor {
-        return this.copy(endIndex = endIndex, length = endIndex - startIndex)
-    }
-
     fun copyWithNewLength(length: Int): RecordFieldDescriptor {
-        return this.copy(length = length, endIndex = startIndex + length)
+        return this.copy(endIndex = startIndex + length)
     }
 
     companion object {

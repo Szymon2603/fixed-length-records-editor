@@ -79,7 +79,7 @@ internal class RecordFieldDescriptorTest {
 
     @Test
     fun `test length is calculated when start and end index are provided in copy method`() {
-        val recordFieldConfig = RecordFieldDescriptor(startIndex = 1).copyWithNewEndIndex(endIndex = 8)
+        val recordFieldConfig = RecordFieldDescriptor(startIndex = 1).copy(endIndex = 8)
 
         assertEquals(7, recordFieldConfig.length)
     }
