@@ -1,7 +1,5 @@
-package com.github.szymon2603.fixedlengthrecordseditor.ui
+package com.github.szymon2603.fixedlengthrecordseditor.model
 
-import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldDescriptor
-import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldsConfig
 import javax.swing.table.AbstractTableModel
 
 class RecordsConfigTableModel(private var recordFieldsConfig: RecordFieldsConfig) : AbstractTableModel() {

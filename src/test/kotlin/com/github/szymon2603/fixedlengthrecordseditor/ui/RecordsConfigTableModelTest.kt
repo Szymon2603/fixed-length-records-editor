@@ -2,6 +2,7 @@ package com.github.szymon2603.fixedlengthrecordseditor.ui
 
 import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldDescriptor
 import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldsConfig
+import com.github.szymon2603.fixedlengthrecordseditor.model.RecordsConfigTableModel
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
