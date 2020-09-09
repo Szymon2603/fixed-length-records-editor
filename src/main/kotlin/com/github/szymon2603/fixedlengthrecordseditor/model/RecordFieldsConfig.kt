@@ -1,10 +1,8 @@
 package com.github.szymon2603.fixedlengthrecordseditor.model
 
-import java.lang.IllegalArgumentException
-
 data class RecordFieldsConfig(
-    val fileProjectPath: String,
-    val recordFieldDescriptors: List<RecordFieldDescriptor>
+    val fileProjectPath: String = "",
+    val recordFieldDescriptors: List<RecordFieldDescriptor> = emptyList()
 ) {
     val numberOfFields: Int
         get() = recordFieldDescriptors.size
