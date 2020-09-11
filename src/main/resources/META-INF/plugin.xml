@@ -25,7 +25,7 @@
     <project-components>
         <component>
             <implementation-class>
-                com.github.szymon2603.fixedlengthrecordseditor.components.RecordFieldsConfigStore
+                com.github.szymon2603.fixedlengthrecordseditor.components.RecordFieldsMappingsStore
             </implementation-class>
         </component>
     </project-components>

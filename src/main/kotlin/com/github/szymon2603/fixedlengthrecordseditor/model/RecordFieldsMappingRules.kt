@@ -1,25 +1,25 @@
 package com.github.szymon2603.fixedlengthrecordseditor.model
 
-data class RecordFieldsConfig(
-    val fileProjectPath: String = "",
-    val recordFieldDescriptors: List<RecordFieldDescriptor> = emptyList()
+data class RecordFieldsMapping(
+    val name: String = "",
+    val fieldDescriptors: List<RecordFieldDescriptor> = emptyList()
 ) {
     val numberOfFields: Int
-        get() = recordFieldDescriptors.size
+        get() = fieldDescriptors.size
 
-    fun copyWithRecordFieldDescriptor(fieldDescriptor: RecordFieldDescriptor): RecordFieldsConfig {
-        return this.copy(recordFieldDescriptors = recordFieldDescriptors.plus(fieldDescriptor))
+    fun copyWithRecordFieldDescriptor(fieldDescriptor: RecordFieldDescriptor): RecordFieldsMapping {
+        return this.copy(fieldDescriptors = fieldDescriptors.plus(fieldDescriptor))
     }
 
-    fun copyWithRecordFieldDescriptor(index: Int, fieldDescriptor: RecordFieldDescriptor): RecordFieldsConfig {
-        val newList = recordFieldDescriptors.toMutableList().apply {
+    fun copyWithRecordFieldDescriptor(index: Int, fieldDescriptor: RecordFieldDescriptor): RecordFieldsMapping {
+        val newList = fieldDescriptors.toMutableList().apply {
             this[index] = fieldDescriptor
         }.toList()
-        return this.copy(recordFieldDescriptors = newList)
+        return this.copy(fieldDescriptors = newList)
     }
 
-    fun copyWithoutRecordFieldDescriptor(fieldDescriptor: RecordFieldDescriptor): RecordFieldsConfig {
-        return this.copy(recordFieldDescriptors = recordFieldDescriptors.minus(fieldDescriptor))
+    fun copyWithoutRecordFieldDescriptor(fieldDescriptor: RecordFieldDescriptor): RecordFieldsMapping {
+        return this.copy(fieldDescriptors = fieldDescriptors.minus(fieldDescriptor))
     }
 }
 
