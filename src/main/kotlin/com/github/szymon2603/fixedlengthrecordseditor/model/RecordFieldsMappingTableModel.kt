@@ -2,12 +2,12 @@ package com.github.szymon2603.fixedlengthrecordseditor.model
 
 import javax.swing.table.AbstractTableModel
 
-class RecordsConfigTableModel(private var recordFieldsConfig: RecordFieldsConfig) : AbstractTableModel() {
+class RecordFieldsMappingTableModel(private var mapping: RecordFieldsMapping) : AbstractTableModel() {
 
-    val recordFieldsConfigView: RecordFieldsConfig
-        get() = recordFieldsConfig
+    val recordFieldsMapping: RecordFieldsMapping
+        get() = mapping
 
-    override fun getRowCount(): Int = recordFieldsConfig.numberOfFields
+    override fun getRowCount(): Int = mapping.numberOfFields
 
     override fun getColumnCount(): Int = RecordFieldDescriptor.NUMBER_OF_CONFIG_ATTRIBUTES
 
@@ -16,31 +16,31 @@ class RecordsConfigTableModel(private var recordFieldsConfig: RecordFieldsConfig
     }
 
     override fun setValueAt(value: Any?, rowIndex: Int, columnIndex: Int) {
-        val recordFieldDescriptors = recordFieldsConfig.recordFieldDescriptors
+        val recordFieldDescriptors = mapping.fieldDescriptors
         val fieldDescriptor = recordFieldDescriptors[rowIndex]
         val newFieldDescriptor = fieldDescriptor.copy(columnIndex, value)
-        recordFieldsConfig = recordFieldsConfig.copyWithRecordFieldDescriptor(rowIndex, newFieldDescriptor)
+        mapping = mapping.copyWithRecordFieldDescriptor(rowIndex, newFieldDescriptor)
     }
 
     override fun isCellEditable(rowIndex: Int, columnIndex: Int): Boolean = true
 
     private fun getRecordFieldsConfig(rowIndex: Int): RecordFieldDescriptor {
-        val recordFieldsConfig = recordFieldsConfig.recordFieldDescriptors
+        val recordFieldsConfig = mapping.fieldDescriptors
         return recordFieldsConfig[rowIndex]
     }
 
     fun addNewRow() {
-        val lastDescriptor = recordFieldsConfig.recordFieldDescriptors.last()
+        val lastDescriptor = mapping.fieldDescriptors.last()
         val newDescriptor = RecordFieldDescriptor(
             startIndex = lastDescriptor.endIndex + 1,
             endIndex = lastDescriptor.endIndex + 2
         )
-        recordFieldsConfig = recordFieldsConfig.copyWithRecordFieldDescriptor(newDescriptor)
+        mapping = mapping.copyWithRecordFieldDescriptor(newDescriptor)
     }
 
     fun removeRow(index: Int) {
-        val recordFieldDescriptors = recordFieldsConfig.recordFieldDescriptors
+        val recordFieldDescriptors = mapping.fieldDescriptors
         val rowToBeRemoved = recordFieldDescriptors[index]
-        recordFieldsConfig = recordFieldsConfig.copyWithoutRecordFieldDescriptor(rowToBeRemoved)
+        mapping = mapping.copyWithoutRecordFieldDescriptor(rowToBeRemoved)
     }
 }

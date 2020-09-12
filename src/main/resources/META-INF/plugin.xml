@@ -22,6 +22,14 @@
                 implementation="com.github.szymon2603.fixedlengthrecordseditor.ui.FixedLengthRecordsEditorProvider"/>
     </extensions>
 
+    <project-components>
+        <component>
+            <implementation-class>
+                com.github.szymon2603.fixedlengthrecordseditor.components.RecordFieldsMappingsStore
+            </implementation-class>
+        </component>
+    </project-components>
+
     <projectListeners>
         <listener class="com.github.szymon2603.fixedlengthrecordseditor.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>

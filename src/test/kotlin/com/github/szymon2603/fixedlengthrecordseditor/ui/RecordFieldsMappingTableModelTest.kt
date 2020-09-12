@@ -1,19 +1,19 @@
 package com.github.szymon2603.fixedlengthrecordseditor.ui
 
 import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldDescriptor
-import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldsConfig
-import com.github.szymon2603.fixedlengthrecordseditor.model.RecordsConfigTableModel
+import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldsMapping
+import com.github.szymon2603.fixedlengthrecordseditor.model.RecordFieldsMappingTableModel
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-internal class RecordsConfigTableModelTest {
+internal class RecordFieldsMappingTableModelTest {
 
     @Test
     fun `test row count is returned correctly`() {
         val recordFieldDescriptors = listOf(RecordFieldDescriptor("some-field"))
-        val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
-        val tableModel = RecordsConfigTableModel(recordFieldsConfig)
+        val recordFieldsConfig = RecordFieldsMapping("some-file.txt", recordFieldDescriptors)
+        val tableModel = RecordFieldsMappingTableModel(recordFieldsConfig)
 
         assertEquals(1, tableModel.rowCount)
     }
@@ -21,8 +21,8 @@ internal class RecordsConfigTableModelTest {
     @Test
     fun `test column count is returned correctly`() {
         val recordFieldDescriptors = listOf(RecordFieldDescriptor("some-field"))
-        val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
-        val tableModel = RecordsConfigTableModel(recordFieldsConfig)
+        val recordFieldsConfig = RecordFieldsMapping("some-file.txt", recordFieldDescriptors)
+        val tableModel = RecordFieldsMappingTableModel(recordFieldsConfig)
 
         assertEquals(5, tableModel.columnCount)
     }
@@ -30,8 +30,8 @@ internal class RecordsConfigTableModelTest {
     @Test
     fun `test that value at row and column index is returned correctly`() {
         val recordFieldDescriptors = listOf(RecordFieldDescriptor("some-field"))
-        val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
-        val tableModel = RecordsConfigTableModel(recordFieldsConfig)
+        val recordFieldsConfig = RecordFieldsMapping("some-file.txt", recordFieldDescriptors)
+        val tableModel = RecordFieldsMappingTableModel(recordFieldsConfig)
 
         assertEquals("some-field", tableModel.getValueAt(0, 0))
     }
@@ -42,8 +42,8 @@ internal class RecordsConfigTableModelTest {
             RecordFieldDescriptor("some-field-one"),
             RecordFieldDescriptor("some-field-two")
         )
-        val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
-        val tableModel = RecordsConfigTableModel(recordFieldsConfig)
+        val recordFieldsConfig = RecordFieldsMapping("some-file.txt", recordFieldDescriptors)
+        val tableModel = RecordFieldsMappingTableModel(recordFieldsConfig)
 
         tableModel.setValueAt("different-value-for-field", 1, 0)
 
@@ -53,8 +53,8 @@ internal class RecordsConfigTableModelTest {
     @Test
     fun `test that all cells are editable for row`() {
         val recordFieldDescriptors = listOf(RecordFieldDescriptor("some-field"))
-        val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
-        val tableModel = RecordsConfigTableModel(recordFieldsConfig)
+        val recordFieldsConfig = RecordFieldsMapping("some-file.txt", recordFieldDescriptors)
+        val tableModel = RecordFieldsMappingTableModel(recordFieldsConfig)
 
         tableModel.setValueAt("different-value-for-field", 0, 0)
 
@@ -64,11 +64,11 @@ internal class RecordsConfigTableModelTest {
     @Test
     fun `test that add new row at end of list`() {
         val recordFieldDescriptors = listOf(RecordFieldDescriptor("some-field", 0, 10))
-        val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
-        val tableModel = RecordsConfigTableModel(recordFieldsConfig)
+        val recordFieldsConfig = RecordFieldsMapping("some-file.txt", recordFieldDescriptors)
+        val tableModel = RecordFieldsMappingTableModel(recordFieldsConfig)
 
         tableModel.addNewRow()
-        val actual = tableModel.recordFieldsConfigView.recordFieldDescriptors[1]
+        val actual = tableModel.recordFieldsMapping.fieldDescriptors[1]
         assertEquals(actual, RecordFieldDescriptor(startIndex = 11, endIndex = 12))
     }
 
@@ -78,10 +78,10 @@ internal class RecordsConfigTableModelTest {
             RecordFieldDescriptor("some-field", 0, 10),
             RecordFieldDescriptor("some-field", 11, 15)
         )
-        val recordFieldsConfig = RecordFieldsConfig("some-file.txt", recordFieldDescriptors)
-        val tableModel = RecordsConfigTableModel(recordFieldsConfig)
+        val recordFieldsConfig = RecordFieldsMapping("some-file.txt", recordFieldDescriptors)
+        val tableModel = RecordFieldsMappingTableModel(recordFieldsConfig)
 
         tableModel.removeRow(0)
-        assertEquals(1, tableModel.recordFieldsConfigView.recordFieldDescriptors.size)
+        assertEquals(1, tableModel.recordFieldsMapping.fieldDescriptors.size)
     }
 }
