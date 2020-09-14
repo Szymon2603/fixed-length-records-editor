@@ -10,8 +10,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService
                 serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.MyApplicationService"/>
-        <projectService
-                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.MyProjectService"/>
+        <applicationService
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.RecordsReader"/>
 
         <fileType name="Fixed length records file"
                   implementationClass="com.github.szymon2603.fixedlengthrecordseditor.filetypes.FixedLengthRecordsFileType"
@@ -29,9 +29,4 @@
             </implementation-class>
         </component>
     </project-components>
-
-    <projectListeners>
-        <listener class="com.github.szymon2603.fixedlengthrecordseditor.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </projectListeners>
 </idea-plugin>

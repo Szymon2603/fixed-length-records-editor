@@ -6,6 +6,7 @@ data class RecordFieldsMapping(
 ) {
     val numberOfFields: Int
         get() = fieldDescriptors.size
+    val recordLength: Int by lazy { fieldDescriptors.maxBy { it.length }?.length ?: -1 }
 
     fun copyWithRecordFieldDescriptor(fieldDescriptor: RecordFieldDescriptor): RecordFieldsMapping {
         return this.copy(fieldDescriptors = fieldDescriptors.plus(fieldDescriptor))
