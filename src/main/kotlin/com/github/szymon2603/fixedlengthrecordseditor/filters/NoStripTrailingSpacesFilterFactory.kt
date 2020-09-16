@@ -15,7 +15,7 @@ class NoStripTrailingSpacesFilterFactory : StripTrailingSpacesFilterFactory() {
     override fun createFilter(project: Project?, document: Document): StripTrailingSpacesFilter {
         val file = FileDocumentManager.getInstance().getFile(document)
         val shouldNotStripLines = file?.fileType == FixedLengthRecordsFileType
-        log.debug("Should not strip lines [${shouldNotStripLines}] for file ${file?.path}")
+        log.debug("Should not strip lines [$shouldNotStripLines] for file ${file?.path}")
         return if (shouldNotStripLines) StripTrailingSpacesFilter.NOT_ALLOWED
         else StripTrailingSpacesFilter.ENFORCED_REMOVAL
     }
