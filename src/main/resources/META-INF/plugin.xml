@@ -8,6 +8,11 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
+        <stripTrailingSpacesFilterFactory
+                id="NoStripTrailingSpacesFilterFactory"
+                order="first"
+                implementation="com.github.szymon2603.fixedlengthrecordseditor.filters.NoStripTrailingSpacesFilterFactory"/>
+
         <applicationService
                 serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.RecordsReader"/>
         <applicationService
