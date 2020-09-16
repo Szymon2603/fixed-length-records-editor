@@ -13,6 +13,7 @@ jobs:
     name: Publish Plugin
     runs-on: ubuntu-latest
     container: gradle:jdk8
+    if: github.repository != 'JetBrains/intellij-platform-plugin-template'
     steps:
 
       # Check out current repository
@@ -51,9 +52,9 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -m "Update changelog" -a
+
       # Push changes
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
