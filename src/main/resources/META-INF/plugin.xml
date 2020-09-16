@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>com.github.szymon2603.fixedlengthrecordseditor</id>
-    <name>fixed-length-records-editor</name>
+    <name>Fixed Length Records Editor</name>
     <vendor>szymon2603</vendor>
 
     <!-- Product and plugin compatibility requirements -->

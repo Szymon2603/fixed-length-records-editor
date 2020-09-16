@@ -1,4 +1,4 @@
-# fixed-length-records-editor
+# Fixed Length Records Editor
 
 ![Build](https://github.com/Szymon2603/fixed-length-records-editor/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
