@@ -51,7 +51,7 @@ class RecordsReaderTest : BasePlatformTestCase() {
 
     fun `test that on empty file it returns empty list`() {
         // Given
-        val file = myFixture.configureByFile("records-reader-empty-file.txt")
+        val file = myFixture.configureByFile("empty-file.txt")
 
         // When
         val actual = service.readRecords(mapping, file)

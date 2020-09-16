@@ -9,9 +9,9 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService
-                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.MyApplicationService"/>
-        <applicationService
                 serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.RecordsReader"/>
+        <applicationService
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.RecordsWriter"/>
 
         <fileType name="Fixed length records file"
                   implementationClass="com.github.szymon2603.fixedlengthrecordseditor.filetypes.FixedLengthRecordsFileType"
