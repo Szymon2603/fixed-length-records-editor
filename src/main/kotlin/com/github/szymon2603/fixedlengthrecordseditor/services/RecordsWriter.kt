@@ -23,11 +23,11 @@ class RecordsWriter {
     }
 
     private fun encodeLineSeparator(separator: String): String {
-        return when(separator) {
+        return when (separator) {
             "\n" -> "LF"
             "\r\n" -> "CRLF"
             "\r" -> "CR"
-            else -> "Unknown separator [${separator}]"
+            else -> "Unknown separator [$separator]"
         }
     }
 }

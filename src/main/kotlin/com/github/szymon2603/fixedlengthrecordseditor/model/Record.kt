@@ -4,7 +4,9 @@ import org.apache.commons.lang.StringUtils
 
 data class Record(
     val fields: List<Field>
-)
+) {
+    fun convertToString(): String = fields.joinToString(separator = "") { it.getFormatted() }
+}
 
 data class Field(
     val value: String,

@@ -8,7 +8,6 @@ import com.github.szymon2603.fixedlengthrecordseditor.model.RecordValueAlignment
 import com.intellij.openapi.components.ServiceManager
 import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import junit.framework.TestCase
-import org.junit.Assert.*
 
 class RecordsWriterTest : BasePlatformTestCase() {
 
@@ -32,22 +31,22 @@ class RecordsWriterTest : BasePlatformTestCase() {
 
     private fun createTestMapping() {
         columnOne = RecordFieldDescriptor(
-                name = "Column A",
-                startIndex = 0,
-                endIndex = 4,
-                alignment = RecordValueAlignment.LEFT
+            name = "Column A",
+            startIndex = 0,
+            endIndex = 4,
+            alignment = RecordValueAlignment.LEFT
         )
         columnTwo = RecordFieldDescriptor(
-                name = "Column B",
-                startIndex = 4,
-                endIndex = 7,
-                alignment = RecordValueAlignment.CENTER
+            name = "Column B",
+            startIndex = 4,
+            endIndex = 7,
+            alignment = RecordValueAlignment.CENTER
         )
         columnThree = RecordFieldDescriptor(
-                name = "Column C",
-                startIndex = 7,
-                endIndex = 10,
-                alignment = RecordValueAlignment.RIGHT
+            name = "Column C",
+            startIndex = 7,
+            endIndex = 10,
+            alignment = RecordValueAlignment.RIGHT
         )
         mapping = RecordFieldsMapping("test-mapping", listOf(columnOne, columnTwo, columnThree))
     }
@@ -72,7 +71,7 @@ class RecordsWriterTest : BasePlatformTestCase() {
         val actual = file.virtualFile.inputStream.bufferedReader().readText()
         val separator = file.virtualFile.detectedLineSeparator
         val expected =
-                "1234 A  00$separator" +
+            "1234 A  00$separator" +
                 "4321 B   0$separator"
         TestCase.assertEquals(expected, actual)
     }
@@ -104,7 +103,7 @@ class RecordsWriterTest : BasePlatformTestCase() {
         val actual = file.virtualFile.inputStream.bufferedReader().readText()
         val separator = file.virtualFile.detectedLineSeparator
         val expected =
-                "1234 A  00$separator" +
+            "1234 A  00$separator" +
                 "4321 B   0$separator" +
                 "999  D  11$separator"
         TestCase.assertEquals(expected, actual)
@@ -129,7 +128,7 @@ class RecordsWriterTest : BasePlatformTestCase() {
         val actual = file.virtualFile.inputStream.bufferedReader().readText()
         val separator = file.virtualFile.detectedLineSeparator
         val expected =
-                "4321 B   0$separator" +
+            "4321 B   0$separator" +
                 "999  D  11$separator"
         TestCase.assertEquals(expected, actual)
     }
