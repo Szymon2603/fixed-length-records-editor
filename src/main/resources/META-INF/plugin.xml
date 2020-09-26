@@ -11,27 +11,29 @@
         <stripTrailingSpacesFilterFactory
                 id="NoStripTrailingSpacesFilterFactory"
                 order="first"
-                implementation="com.github.szymon2603.fixedlengthrecordseditor.filters.NoStripTrailingSpacesFilterFactory"/>
+                implementation="com.github.szymon2603.fixedlengthrecordseditor.NoStripTrailingSpacesFilterFactory"/>
 
         <applicationService
-                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.RecordsReader"/>
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.recordseditor.services.RecordsReader"/>
         <applicationService
-                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.services.RecordsWriter"/>
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.recordseditor.services.RecordsWriter"/>
+
+        <projectService
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.mappings.components.RecordFieldsMappingsStore"/>
+
+        <projectService
+                serviceImplementation="com.github.szymon2603.fixedlengthrecordseditor.mappings.components.RecordFieldsMappingLinksStore"/>
 
         <fileType name="Fixed length records file"
                   implementationClass="com.github.szymon2603.fixedlengthrecordseditor.filetypes.FixedLengthRecordsFileType"
                   fieldName="INSTANCE"
                   extensions="txt"/>
 
+        <projectConfigurable
+                id="fixed-length-records-mapping-configurable"
+                displayName="Fixed Length Records Mappings"
+                instance="com.github.szymon2603.fixedlengthrecordseditor.mappings.FixedLengthRecordsMappingConfigurable"/>
         <fileEditorProvider
-                implementation="com.github.szymon2603.fixedlengthrecordseditor.ui.FixedLengthRecordsEditorProvider"/>
+                implementation="com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.FixedLengthRecordsEditorProvider"/>
     </extensions>
-
-    <project-components>
-        <component>
-            <implementation-class>
-                com.github.szymon2603.fixedlengthrecordseditor.components.RecordFieldsMappingsStore
-            </implementation-class>
-        </component>
-    </project-components>
 </idea-plugin>
