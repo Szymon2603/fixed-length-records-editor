@@ -1,4 +1,4 @@
-package com.github.szymon2603.fixedlengthrecordseditor.recordsecitor.ui.swing;
+package com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.swing;
 
 import javax.swing.*;
 

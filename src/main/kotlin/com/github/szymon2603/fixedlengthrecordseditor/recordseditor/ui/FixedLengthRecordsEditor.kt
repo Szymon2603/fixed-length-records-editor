@@ -4,7 +4,7 @@ import com.github.szymon2603.fixedlengthrecordseditor.diagnostic.createLogger
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.components.RecordFieldsMappingLinksStore
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.components.RecordFieldsMappingsStore
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.model.RecordFieldsMapping
-import com.github.szymon2603.fixedlengthrecordseditor.recordsecitor.ui.swing.FixedLengthRecordsForm
+import com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.swing.FixedLengthRecordsForm
 import com.intellij.openapi.fileEditor.FileEditor
 import com.intellij.openapi.fileEditor.FileEditorLocation
 import com.intellij.openapi.fileEditor.FileEditorState
