@@ -16,7 +16,6 @@ import java.beans.PropertyChangeListener
 import java.beans.PropertyChangeSupport
 import javax.swing.JComponent
 
-@Suppress("TooManyFunctions")
 class FixedLengthRecordsEditor(
     project: Project,
     private val openedFile: VirtualFile
