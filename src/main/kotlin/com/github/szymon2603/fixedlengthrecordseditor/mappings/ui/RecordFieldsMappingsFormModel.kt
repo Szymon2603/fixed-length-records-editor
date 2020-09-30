@@ -10,16 +10,22 @@ import javax.swing.DefaultCellEditor
 import javax.swing.JComboBox
 import javax.swing.table.TableCellEditor
 import javax.swing.table.TableModel
-import kotlin.properties.Delegates
-import kotlin.reflect.KProperty
 
 class RecordFieldsMappingsFormModel(initialModel: List<Pair<UUID, RecordFieldsMapping>>) {
     private val mappings = initialModel.map { MappingModel(it) }.toMutableList()
     val currentFormState: Map<UUID, RecordFieldsMapping>
         get() = mappings.map { it.toDomainModel() }.toMap()
 
-    var selectedMapping: Int by Delegates.observable(0, this::onSelectedMappingChange)
-    var selectedDescriptor: Int = 0
+    var selectedMapping: Int = calculateSelectedMapping()
+        set(value) {
+            field = if (mappings.isEmpty()) -1 else value
+            val fieldDescriptors = getDescriptors(field)
+            _descriptorsTableModel.update(fieldDescriptors)
+        }
+    var selectedDescriptor: Int = -1
+        set(value) {
+            field = if (getDescriptors(selectedMapping).isEmpty()) -1 else value
+        }
 
     private val _mappingsTableModel = ListTableModel(mappings, listOf(MappingNameColumn))
     val mappingsTableModel: TableModel
@@ -29,22 +35,35 @@ class RecordFieldsMappingsFormModel(initialModel: List<Pair<UUID, RecordFieldsMa
     val descriptorsTableModel: TableModel
         get() = _descriptorsTableModel
 
+    private fun calculateSelectedMapping(): Int {
+        return if (mappings.isEmpty()) -1 else 0
+    }
+
     private fun createDescriptorsTableModel(): ListTableModel<RecordFieldDescriptorModel> {
-        val fieldDescriptors = mappings[selectedMapping].mapping.fieldDescriptors
+        val fieldDescriptors = if (selectedMapping != -1) {
+            mappings[selectedMapping].mapping.fieldDescriptors
+        } else {
+            emptyList<RecordFieldDescriptorModel>().toMutableList()
+        }
+        if (fieldDescriptors.isNotEmpty()) {
+            selectedDescriptor = 0
+        }
         val columns = listOf(DescriptorNameColumn, StartIndexColumn, EndIndexColumn, LengthColumn, AlignmentColumn)
         return ListTableModel(fieldDescriptors, columns)
     }
 
-    @Suppress("UNUSED_PARAMETER")
-    private fun onSelectedMappingChange(property: KProperty<*>, oldValue: Int, newValue: Int) {
-        val fieldDescriptors = mappings[newValue].mapping.fieldDescriptors
-        _descriptorsTableModel.update(fieldDescriptors)
+    private fun getDescriptors(newValue: Int): MutableList<RecordFieldDescriptorModel> {
+        return if (newValue >= 0 && newValue < mappings.size) {
+            mappings[newValue].mapping.fieldDescriptors
+        } else {
+            emptyList<RecordFieldDescriptorModel>().toMutableList()
+        }
     }
 
     fun addMapping() {
         val key = UUID.randomUUID()
         val mapping = RecordFieldsMappingModel("New mapping")
-        _mappingsTableModel.addRow(MappingModel(key, mapping))
+        _mappingsTableModel.addRow(MappingModel(key, mapping), selectedMapping + 1)
     }
 
     fun removeMapping() {
@@ -53,7 +72,7 @@ class RecordFieldsMappingsFormModel(initialModel: List<Pair<UUID, RecordFieldsMa
 
     fun addDescriptor() {
         val descriptor = RecordFieldDescriptorModel("New column", 0, 1, RecordValueAlignment.LEFT)
-        _descriptorsTableModel.addRow(descriptor)
+        _descriptorsTableModel.addRow(descriptor, selectedDescriptor + 1)
     }
 
     fun removeDescriptor() {

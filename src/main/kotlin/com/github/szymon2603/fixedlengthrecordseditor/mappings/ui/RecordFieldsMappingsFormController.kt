@@ -8,6 +8,8 @@ import com.intellij.ui.ToolbarDecorator
 import java.awt.BorderLayout
 import java.util.UUID
 import javax.swing.JComponent
+import javax.swing.JTable
+import javax.swing.event.TableModelEvent
 
 class RecordFieldsMappingsFormController(initialFormState: Map<UUID, RecordFieldsMapping>) {
     private val form = RecordFieldsMappingsForm()
@@ -23,8 +25,6 @@ class RecordFieldsMappingsFormController(initialFormState: Map<UUID, RecordField
     init {
         // Descriptors table
         descriptorTable = ListTable(formModel.descriptorsTableModel)
-        descriptorTable.selectionModel = SingleSelectionModel()
-        descriptorTable.changeSelection(0, 0, false, false)
 
         val descriptorTableDecorator = ToolbarDecorator.createDecorator(descriptorTable)
         descriptorTableDecorator.disableUpDownActions()
@@ -32,10 +32,11 @@ class RecordFieldsMappingsFormController(initialFormState: Map<UUID, RecordField
         descriptorTableDecorator.setRemoveAction { formModel.removeDescriptor() }
         form.descriptorTablePanel.add(descriptorTableDecorator.createPanel(), BorderLayout.CENTER)
 
+        descriptorTable.selectionModel = SingleSelectionModel()
+        descriptorTable.changeSelection(formModel.selectedDescriptor, 0, false, false)
+
         // Mappings table
         mappingsTable = ListTable(formModel.mappingsTableModel)
-        mappingsTable.selectionModel = SingleSelectionModel()
-        mappingsTable.changeSelection(0, 0, false, false)
 
         val mappingsTableDecorator = ToolbarDecorator.createDecorator(mappingsTable)
         mappingsTableDecorator.disableUpDownActions()
@@ -43,15 +44,29 @@ class RecordFieldsMappingsFormController(initialFormState: Map<UUID, RecordField
         mappingsTableDecorator.setRemoveAction() { formModel.removeMapping() }
         form.mappingsTablePanel.add(mappingsTableDecorator.createPanel(), BorderLayout.CENTER)
 
+        mappingsTable.selectionModel = SingleSelectionModel()
+        mappingsTable.changeSelection(formModel.selectedMapping, 0, false, false)
+
+        descriptorTable.model.addTableModelListener(createListenerToFixSelectionOnRowRemoval(descriptorTable))
         descriptorTable.selectionModel.addListSelectionListener {
-            if (!it.valueIsAdjusting) {
+            if (!it.valueIsAdjusting || descriptorTable.selectedRow == -1) {
                 formModel.selectedDescriptor = descriptorTable.selectedRow
             }
         }
+
+        mappingsTable.model.addTableModelListener(createListenerToFixSelectionOnRowRemoval(mappingsTable))
         mappingsTable.selectionModel.addListSelectionListener {
-            if (!it.valueIsAdjusting) {
+            if (!it.valueIsAdjusting || mappingsTable.selectedRow == -1) {
                 formModel.selectedMapping = mappingsTable.selectedRow
                 descriptorTable.changeSelection(0, 0, false, false)
+            }
+        }
+    }
+
+    private fun createListenerToFixSelectionOnRowRemoval(table: JTable): (TableModelEvent) -> Unit {
+        return {
+            if (it.type == TableModelEvent.DELETE) {
+                table.changeSelection(it.firstRow - 1, 0, false, false)
             }
         }
     }

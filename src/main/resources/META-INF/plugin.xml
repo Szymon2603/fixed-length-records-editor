@@ -32,7 +32,7 @@
         <projectConfigurable
                 id="fixed-length-records-mapping-configurable"
                 displayName="Fixed Length Records Mappings"
-                instance="com.github.szymon2603.fixedlengthrecordseditor.mappings.FixedLengthRecordsMappingConfigurable"/>
+                instance="com.github.szymon2603.fixedlengthrecordseditor.mappings.FixedLengthRecordsMappingConfigProvider"/>
         <fileEditorProvider
                 implementation="com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.FixedLengthRecordsEditorProvider"/>
     </extensions>
