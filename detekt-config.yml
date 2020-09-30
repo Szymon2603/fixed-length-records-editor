@@ -4,3 +4,8 @@
 formatting:
   Indentation:
     active: true
+
+complexity:
+  TooManyFunctions:
+    ignorePrivate: true
+    ignoreOverridden: true
