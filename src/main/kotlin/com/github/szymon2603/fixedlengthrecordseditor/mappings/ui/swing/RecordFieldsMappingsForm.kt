@@ -3,12 +3,12 @@ package com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.swing
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.model.RecordFieldsMapping
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.RecordFieldsMappingsFormModel
 import com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.ListTable
-import com.intellij.ui.SingleSelectionModel
 import com.intellij.ui.ToolbarDecorator
 import java.awt.BorderLayout
 import java.util.UUID
 import javax.swing.JPanel
 import javax.swing.JTable
+import javax.swing.ListSelectionModel
 import javax.swing.event.TableModelEvent
 
 class RecordFieldsMappingsForm(initialFormState: Map<UUID, RecordFieldsMapping>) {
@@ -31,37 +31,45 @@ class RecordFieldsMappingsForm(initialFormState: Map<UUID, RecordFieldsMapping>)
 
         val descriptorTableDecorator = ToolbarDecorator.createDecorator(descriptorTable)
         descriptorTableDecorator.disableUpDownActions()
-        descriptorTableDecorator.setAddAction { formModel.addDescriptor() }
-        descriptorTableDecorator.setRemoveAction { formModel.removeDescriptor() }
+        descriptorTableDecorator.setAddAction { formModel.addDescriptor(descriptorTable.selectedRow) }
+        descriptorTableDecorator.setRemoveAction { formModel.removeDescriptor(descriptorTable.selectedRow) }
         descriptorTablePanel.add(descriptorTableDecorator.createPanel(), BorderLayout.CENTER)
 
-        descriptorTable.selectionModel = SingleSelectionModel()
-        descriptorTable.changeSelection(formModel.selectedDescriptor, 0, false, false)
+        descriptorTable.selectionModel.selectionMode = ListSelectionModel.SINGLE_SELECTION
+        if (initialFormState.isNotEmpty() && initialFormState.toList()[0].second.fieldDescriptors.isNotEmpty()) {
+            descriptorTable.changeSelection(0, 0, false, false)
+        }
 
         // Mappings table
         mappingsTable = ListTable(formModel.mappingsTableModel)
 
         val mappingsTableDecorator = ToolbarDecorator.createDecorator(mappingsTable)
         mappingsTableDecorator.disableUpDownActions()
-        mappingsTableDecorator.setAddAction { formModel.addMapping() }
-        mappingsTableDecorator.setRemoveAction() { formModel.removeMapping() }
+        mappingsTableDecorator.setAddAction { formModel.addMapping(mappingsTable.selectedRow) }
+        mappingsTableDecorator.setRemoveAction() { formModel.removeMapping(mappingsTable.selectedRow) }
         mappingsTablePanel.add(mappingsTableDecorator.createPanel(), BorderLayout.CENTER)
 
-        mappingsTable.selectionModel = SingleSelectionModel()
-        mappingsTable.changeSelection(formModel.selectedMapping, 0, false, false)
-
-        descriptorTable.model.addTableModelListener(createListenerToFixSelectionOnRowRemoval(descriptorTable))
-        descriptorTable.selectionModel.addListSelectionListener {
-            if (!it.valueIsAdjusting || descriptorTable.selectedRow == -1) {
-                formModel.selectedDescriptor = descriptorTable.selectedRow
-            }
+        mappingsTable.selectionModel.selectionMode = ListSelectionModel.SINGLE_SELECTION
+        if (initialFormState.isNotEmpty()) {
+            mappingsTable.changeSelection(0, 0, false, false)
         }
 
+        descriptorTable.model.addTableModelListener(createListenerToFixSelectionOnRowRemoval(descriptorTable))
+
         mappingsTable.model.addTableModelListener(createListenerToFixSelectionOnRowRemoval(mappingsTable))
+        mappingsTable.model.addTableModelListener {
+            if (it.type == TableModelEvent.INSERT) {
+                descriptorTable.changeSelection(-1, 0, false, false)
+            }
+        }
         mappingsTable.selectionModel.addListSelectionListener {
-            if (!it.valueIsAdjusting || mappingsTable.selectedRow == -1) {
-                formModel.selectedMapping = mappingsTable.selectedRow
-                descriptorTable.changeSelection(0, 0, false, false)
+            if (!it.valueIsAdjusting) {
+                formModel.updateDescriptorsModelFor(mappingsTable.selectedRow)
+                if (!formModel.isDescriptorListEmpty(mappingsTable.selectedRow)) {
+                    descriptorTable.changeSelection(0, 0, false, false)
+                } else {
+                    descriptorTable.changeSelection(-1, 0, false, false)
+                }
             }
         }
     }
