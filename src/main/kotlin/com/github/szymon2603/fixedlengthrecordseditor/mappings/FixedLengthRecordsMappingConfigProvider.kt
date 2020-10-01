@@ -1,19 +1,19 @@
 package com.github.szymon2603.fixedlengthrecordseditor.mappings
 
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.components.RecordFieldsMappingsStore
-import com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.RecordFieldsMappingsFormController
+import com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.swing.RecordFieldsMappingsForm
 import com.intellij.openapi.options.SearchableConfigurable
 import com.intellij.openapi.project.Project
 import javax.swing.JComponent
 
 class FixedLengthRecordsMappingConfigProvider(private val project: Project) : SearchableConfigurable {
 
-    private lateinit var form: RecordFieldsMappingsFormController
+    private lateinit var form: RecordFieldsMappingsForm
 
     override fun createComponent(): JComponent? {
         val mappings = RecordFieldsMappingsStore.getInstance(project).mappings
-        form = RecordFieldsMappingsFormController(mappings)
-        return form.mainComponent
+        form = RecordFieldsMappingsForm(mappings)
+        return form.mainPanel
     }
 
     override fun isModified(): Boolean {
