@@ -3,6 +3,7 @@ package com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.swing
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.model.RecordFieldsMapping
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.RecordFieldsMappingsFormModel
 import com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.ListTable
+import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.ui.ToolbarDecorator
 import java.awt.BorderLayout
 import java.util.UUID
@@ -32,6 +33,7 @@ class RecordFieldsMappingsForm(initialFormState: Map<UUID, RecordFieldsMapping>)
         val descriptorTableDecorator = ToolbarDecorator.createDecorator(descriptorTable)
         descriptorTableDecorator.disableUpDownActions()
         descriptorTableDecorator.setAddAction { formModel.addDescriptor(descriptorTable.selectedRow) }
+        descriptorTableDecorator.setAddActionUpdater { descriptorAddActionUpdater() }
         descriptorTableDecorator.setRemoveAction { formModel.removeDescriptor(descriptorTable.selectedRow) }
         descriptorTablePanel.add(descriptorTableDecorator.createPanel(), BorderLayout.CENTER)
 
@@ -80,5 +82,9 @@ class RecordFieldsMappingsForm(initialFormState: Map<UUID, RecordFieldsMapping>)
                 table.changeSelection(it.firstRow - 1, 0, false, false)
             }
         }
+    }
+
+    private fun descriptorAddActionUpdater(): Boolean {
+        return formModel.currentFormState.isNotEmpty() && mappingsTable.selectedRow != -1
     }
 }
