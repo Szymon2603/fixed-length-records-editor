@@ -18,9 +18,9 @@ data class RecordFieldsMappingLinksState(
 data class RecordFieldsMappingFileLinkElement(
     @Attribute val fileProjectPath: String = "",
     @Attribute(converter = UUIDConverter::class)
-    val mappingKey: UUID = UUID.fromString("")
+    val mappingKey: UUID? = null
 ) {
     constructor(model: RecordFieldsMappingFileLink) : this(model.fileProjectPath, model.mappingId)
 
-    fun convert() = RecordFieldsMappingFileLink(fileProjectPath, mappingKey)
+    fun convert() = RecordFieldsMappingFileLink(fileProjectPath, mappingKey!!)
 }

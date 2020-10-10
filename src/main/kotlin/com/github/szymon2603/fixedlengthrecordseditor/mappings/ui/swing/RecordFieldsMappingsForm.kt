@@ -3,7 +3,6 @@ package com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.swing
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.model.RecordFieldsMapping
 import com.github.szymon2603.fixedlengthrecordseditor.mappings.ui.RecordFieldsMappingsFormModel
 import com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.ListTable
-import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.ui.ToolbarDecorator
 import java.awt.BorderLayout
 import java.util.UUID

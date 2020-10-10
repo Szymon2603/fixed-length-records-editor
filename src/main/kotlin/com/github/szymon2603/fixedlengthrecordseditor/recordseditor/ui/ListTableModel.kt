@@ -46,6 +46,10 @@ class ListTableModel<R>(private var data: MutableList<R>, private val columns: L
         this.data = data
         fireTableDataChanged()
     }
+
+    companion object {
+        val EMPTY_MODEL = ListTableModel(emptyList<Any>().toMutableList(), emptyList())
+    }
 }
 
 interface Column<R> {

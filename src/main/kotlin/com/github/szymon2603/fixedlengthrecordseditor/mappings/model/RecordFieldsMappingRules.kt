@@ -4,7 +4,7 @@ data class RecordFieldsMapping(
     val name: String = "",
     val fieldDescriptors: List<RecordFieldDescriptor> = emptyList()
 ) {
-    val recordLength: Int by lazy { fieldDescriptors.maxBy { it.length }?.length ?: -1 }
+    val recordLength: Int by lazy { fieldDescriptors.sumBy { it.length } }
 }
 
 data class RecordFieldDescriptor(

@@ -1,13 +1,13 @@
 package com.github.szymon2603.fixedlengthrecordseditor.recordseditor.services
 
-import com.github.szymon2603.fixedlengthrecordseditor.diagnostic.createLogger
 import com.github.szymon2603.fixedlengthrecordseditor.recordseditor.model.Record
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.psi.PsiFile
+import org.slf4j.LoggerFactory
 
 class RecordsWriter {
 
-    private val log = RecordsReader::class.createLogger()
+    private val log = LoggerFactory.getLogger(RecordsReader::class.java)
 
     fun writeRecords(psiFile: PsiFile, records: List<Record>) {
         val file = psiFile.virtualFile

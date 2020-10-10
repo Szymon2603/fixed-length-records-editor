@@ -1,6 +1,7 @@
 package com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui
 
 import com.github.szymon2603.fixedlengthrecordseditor.filetypes.FixedLengthRecordsLanguage
+import com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.swing.RecordsEditorForm
 import com.intellij.openapi.fileEditor.AsyncFileEditorProvider
 import com.intellij.openapi.fileEditor.FileEditor
 import com.intellij.openapi.fileEditor.FileEditorPolicy
@@ -26,7 +27,7 @@ class FixedLengthRecordsEditorProvider : AsyncFileEditorProvider {
     override fun createEditorAsync(project: Project, file: VirtualFile): AsyncFileEditorProvider.Builder {
         return object : AsyncFileEditorProvider.Builder() {
             override fun build(): FileEditor {
-                return FixedLengthRecordsEditor(project, file)
+                return RecordsEditorForm(project, file)
             }
         }
     }
