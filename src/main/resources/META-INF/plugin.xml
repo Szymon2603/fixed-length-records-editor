@@ -33,6 +33,10 @@
                 id="fixed-length-records-mapping-configurable"
                 displayName="Fixed Length Records Mappings"
                 instance="com.github.szymon2603.fixedlengthrecordseditor.mappings.FixedLengthRecordsMappingConfigProvider"/>
+        <projectConfigurable
+                id="fixed-length-records-layouts-configurable"
+                displayName="Fixed Length Records Layouts"
+                instance="com.github.szymon2603.fixedlengthrecordseditor.layout.RecordsLayoutConfigProvider"/>
         <fileEditorProvider
                 implementation="com.github.szymon2603.fixedlengthrecordseditor.recordseditor.ui.FixedLengthRecordsEditorProvider"/>
     </extensions>

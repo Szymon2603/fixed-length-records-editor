@@ -3,13 +3,19 @@ package com.github.szymon2603.fixedlengthrecordseditor.layout.model
 import java.util.regex.Pattern
 
 data class RecordsLayout(
+    var name: String = "",
     val recordMappings: MutableList<RecordMapping> = mutableListOf()
 )
 
 data class RecordMapping(
+    var name: String = "",
     val fieldMappings: MutableList<FieldMapping> = mutableListOf(),
-    val recordDetector: RecordDetector = EveryRowRecordDetector
-)
+    var recordSelector: RecordSelector = EveryRowRecordSelector
+) {
+    override fun toString(): String {
+        return name
+    }
+}
 
 data class FieldMapping(
     var name: String = "",
@@ -34,21 +40,21 @@ data class FieldMapping(
     }
 }
 
-interface RecordDetector {
+interface RecordSelector {
     fun canApplyMapping(record: String, lineNumber: Long): Boolean
 }
 
-object EveryRowRecordDetector : RecordDetector {
+object EveryRowRecordSelector : RecordSelector {
     override fun canApplyMapping(record: String, lineNumber: Long) = true
 }
 
-data class LineNumberRecordDetector(val lineNumber: Long) : RecordDetector {
+data class LineNumberRecordSelector(var lineNumber: Long) : RecordSelector {
     override fun canApplyMapping(record: String, lineNumber: Long): Boolean {
         return this.lineNumber == lineNumber
     }
 }
 
-data class RegexRecordDetector(var regex: String) : RecordDetector {
+data class RegexRecordSelector(var regex: String) : RecordSelector {
     override fun canApplyMapping(record: String, lineNumber: Long): Boolean {
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(record)
